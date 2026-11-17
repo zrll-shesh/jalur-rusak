@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: 237 240 238;
+  --surface: 248 250 249;
+  --ink: 28 35 33;
+  --muted: 88 100 96;
+  --line: 200 208 204;
+  --route: 15 107 79;
+  --route-soft: 214 234 225;
+  --hazard: 245 183 0;
+  --alert: 180 35 24;
+  --sign: 12 84 62;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: 20 25 24;
+    --surface: 28 34 32;
+    --ink: 226 233 230;
+    --muted: 147 160 155;
+    --line: 52 62 59;
+    --route: 63 190 139;
+    --route-soft: 25 55 45;
+    --hazard: 245 183 0;
+    --alert: 248 113 102;
+    --sign: 14 74 55;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: 20 25 24;
+  --surface: 28 34 32;
+  --ink: 226 233 230;
+  --muted: 147 160 155;
+  --line: 52 62 59;
+  --route: 63 190 139;
+  --route-soft: 25 55 45;
+  --hazard: 245 183 0;
+  --alert: 248 113 102;
+  --sign: 14 74 55;
+  color-scheme: dark;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: rgb(var(--paper));
+  color: rgb(var(--ink));
+  font-family: "Overpass", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  font-feature-settings: "kern", "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgb(var(--hazard));
+  color: #1c2321;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--route));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.num {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Pola jalur rusak: garis kuning-hitam seperti pembatas proyek jalan */
+.hazard-bar {
+  background: repeating-linear-gradient(-45deg, rgb(var(--hazard)) 0 10px, #1c2321 10px 20px);
+}
+.hazard-cell {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgb(var(--hazard) / 0.38) 0 7px,
+    transparent 7px 14px
+  );
+}
+
+.prose-body p + p {
+  margin-top: 0.9em;
+}
+
+.paper-grid {
+  background-image: linear-gradient(rgb(var(--line) / 0.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--line) / 0.45) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Scrollbar tipis untuk tabel lebar */
+.scroll-x {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.katex {
+  font-size: 1.08em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header, footer, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+}

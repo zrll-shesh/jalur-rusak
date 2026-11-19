@@ -46,12 +46,8 @@ export default function Footer() {
       </div>
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-[1240px] flex-wrap justify-between gap-2 px-5 py-5 text-[13px] text-muted md:px-8" style={{ paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))" }}>
-          <span>© 2026 Nazril Ravi Pratama. {t({ id: "Dilarang menyalin atau mengubah tanpa izin.", en: "Do not copy or modify without permission." })}</span>
-          <span>
-            {t({ id: "Diinisiasi dan dikembangkan oleh ", en: "Initiated and developed by " })}
-            <span className="font-semibold text-ink/80">Nazril Ravi Pratama</span>
-            {t({ id: ", bersama anggota Kelompok 1", en: ", with the members of Group 1" })}
-          </span>
+          <span>© 2026 {t(site.group)}, {t(site.course)}. {t({ id: "Dilarang menyalin atau mengubah tanpa izin.", en: "Do not copy or modify without permission." })}</span>
+          <span>{team.map((m) => m.name).join(", ")}</span>
         </div>
       </div>
     </footer>

@@ -62,11 +62,11 @@ export default function TentangPage() {
               </li>
             ))}
           </ol>
-          <h2 className="mt-12 text-[24px] font-black tracking-[-0.02em]">{t({ id: "Pembuat website", en: "Website credits" })}</h2>
+          <h2 className="mt-12 text-[24px] font-black tracking-[-0.02em]">{t({ id: "Pengembangan website", en: "Website development" })}</h2>
           <p className="mt-3 text-[16.5px] text-ink/85">
             {t({
-              id: "Website ini diinisiasi, dirancang, dan dikembangkan oleh Nazril Ravi Pratama. Anggota Kelompok 1 lainnya membantu dalam penyusunan materi, pemeriksaan soal, dan persiapan presentasi.",
-              en: "This website was initiated, designed, and developed by Nazril Ravi Pratama. The other members of Group 1 helped prepare the material, check the problems, and get ready for the presentation.",
+              id: "Website ini dirancang dan dikembangkan bersama oleh seluruh anggota Kelompok 1: Nazril Ravi Pratama, Rizki Piji Fathoni, Faisal Muflih, Mylovia Mahesa Ayu, dan Syafira Najema. Setiap anggota berkontribusi dalam penyusunan materi, pembuatan dan pemeriksaan soal, pengembangan website, serta persiapan presentasi.",
+              en: "This website was designed and developed together by all members of Group 1: Nazril Ravi Pratama, Rizki Piji Fathoni, Faisal Muflih, Mylovia Mahesa Ayu, and Syafira Najema. Every member contributed to the material, creating and checking the problems, building the website, and preparing the presentation.",
             })}
           </p>
           <h2 className="mt-12 text-[24px] font-black tracking-[-0.02em]">{t({ id: "Teknologi", en: "Technology" })}</h2>

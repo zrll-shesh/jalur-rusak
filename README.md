@@ -4,9 +4,7 @@ Web pembelajaran interaktif tentang masalah transportasi dengan jalur rusak (rut
 Kelompok 1, Teknik Optimasi, Sains Data, Kelas International 24, Universitas Negeri Surabaya.
 Dosen pengampu: Yuliani Puji Astuti, S.Si., M.Si.
 
-Website diinisiasi dan dikembangkan oleh Nazril Ravi Pratama, bersama anggota Kelompok 1.
-
-Anggota: Nazril Ravi Pratama, Rizki Piji Fathoni, Faisal Muflih, Mylovia Mahesa Ayu, Syafira Najema.
+Website ini dirancang dan dikembangkan bersama oleh seluruh anggota Kelompok 1: Nazril Ravi Pratama, Rizki Piji Fathoni, Faisal Muflih, Mylovia Mahesa Ayu, dan Syafira Najema.
 
 ## Menjalankan di komputer
 
@@ -38,6 +36,6 @@ Untuk menambah soal, cukup tambahkan objek baru di `lib/content/problems.ts`. Pe
 
 ## Hak cipta dan izin penggunaan
 
-Hak Cipta (c) 2026 Nazril Ravi Pratama. Seluruh hak dilindungi.
+Hak Cipta (c) 2026 Kelompok 1 Teknik Optimasi, Sains Data, Kelas International 24, Universitas Negeri Surabaya. Seluruh hak dilindungi.
 
-Repositori ini **bukan open source**. Siapa pun yang ingin menyalin, mengubah, memakai ulang, atau men-deploy kode, desain, maupun materi dari repositori ini **wajib meminta izin terlebih dahulu** kepada Nazril Ravi Pratama melalui akun GitHub pemilik repositori. Repositori ini boleh dilihat untuk keperluan belajar pribadi. Ketentuan lengkap ada di file `LICENSE`.
+Repositori ini **bukan open source**. Siapa pun yang ingin menyalin, mengubah, memakai ulang, atau men-deploy kode, desain, maupun materi dari repositori ini **wajib meminta izin terlebih dahulu** kepada Kelompok 1 melalui akun GitHub pemilik repositori. Repositori ini boleh dilihat untuk keperluan belajar pribadi. Ketentuan lengkap ada di file `LICENSE`.

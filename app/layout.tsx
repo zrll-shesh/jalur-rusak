@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     { name: "Mylovia Mahesa Ayu" },
     { name: "Syafira Najema" },
   ],
-  creator: "Nazril Ravi Pratama",
   icons: { icon: "/favicon.svg" },
 };
 

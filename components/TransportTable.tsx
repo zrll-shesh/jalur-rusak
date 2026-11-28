@@ -93,7 +93,7 @@ export default function TransportTable({
           {cols.map((c) => (
             <div
               key={`h${c}`}
-              className={`${headCls} ${snap.colDone?.[c] ? "text-muted line-through decoration-2" : ""} ${isDummyCol(c) ? "italic text-muted" : ""}`}
+              className={`${headCls} ${snap.colDone?.[c] ? "text-muted line-through decoration-2" : ""} ${isDummyCol(c) ? "italic text-muted" : ""} ${snap.penPick?.kind === "col" && snap.penPick.idx === c ? "bg-hazard/25 text-ink" : ""}`}
               style={{ height: HH }}
             >
               <span className="truncate px-1">{colLabels[c]}</span>
@@ -117,7 +117,7 @@ export default function TransportTable({
           {rows.map((r) => (
             <Fragment key={`r${r}`}>
               <div
-                className={`flex items-center border-b border-r border-line px-2 text-[14px] font-bold ${snap.rowDone?.[r] ? "text-muted line-through decoration-2" : ""} ${isDummyRow(r) ? "italic text-muted" : ""}`}
+                className={`flex items-center border-b border-r border-line px-2 text-[14px] font-bold ${snap.rowDone?.[r] ? "text-muted line-through decoration-2" : ""} ${isDummyRow(r) ? "italic text-muted" : ""} ${snap.penPick?.kind === "row" && snap.penPick.idx === r ? "bg-hazard/25 text-ink" : ""}`}
                 style={{ height: CH }}
               >
                 <span className="truncate">{rowLabels[r]}</span>

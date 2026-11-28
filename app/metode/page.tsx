@@ -125,7 +125,7 @@ const tabs: Tab[] = ["nwc", "lcm", "vam", "modi", "stepping"];
 
 export default function MetodePage() {
   const { t } = useApp();
-  const [tab, setTab] = useState<Tab>("vam");
+  const [tab, setTab] = useState<Tab>("nwc");
   const [slug, setSlug] = useState("vam-menghindar");
   const prob = problems.find((p) => p.slug === slug)!;
   const isInit = tab === "nwc" || tab === "lcm" || tab === "vam";
@@ -142,6 +142,17 @@ export default function MetodePage() {
       })),
     []
   );
+
+  const summary = useMemo(() => {
+    const methods = [0, 1, 2].map((idx) => ({
+      mCount: table.filter(({ r }) => hasM(r[idx].initialCost)).length,
+      totalIter: table.reduce((acc, { r }) => acc + r[idx].iterations, 0),
+    }));
+    const minM = Math.min(...methods.map((x) => x.mCount));
+    const minIter = Math.min(...methods.map((x) => x.totalIter));
+    const feasibleCount = table.filter(({ r }) => r[0].feasible).length;
+    return { methods, minM, minIter, feasibleCount };
+  }, [table]);
 
   return (
     <div className="mx-auto max-w-[1240px] px-5 py-12 md:px-8 md:py-16">
@@ -210,16 +221,33 @@ export default function MetodePage() {
           <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] font-black tracking-[-0.02em]">
             {t({ id: "Simulasi", en: "Live run" })}: {isInit ? t(I.name) : `Least Cost + ${t(I.name)}`}
           </h2>
-          <label className="flex items-center gap-2 text-[14px]">
-            <span className="text-muted">{t({ id: "Soal", en: "Problem" })}</span>
-            <select value={slug} onChange={(e) => setSlug(e.target.value)} className="max-w-[280px] rounded-[3px] border border-ink/30 bg-surface px-3 py-2 font-semibold">
-              {problems.map((p) => (
-                <option key={p.slug} value={p.slug}>
-                  {t(p.title)}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="flex flex-wrap items-center gap-3">
+            {isInit && (
+              <div className="inline-flex rounded-[3px] border border-ink/30 bg-surface p-0.5 text-[13px]" role="group" aria-label={t({ id: "Pilih metode solusi awal", en: "Choose initial method" })}>
+                {(["nwc", "lcm", "vam"] as Method[]).map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    aria-pressed={tab === m}
+                    onClick={() => setTab(m)}
+                    className={`rounded-[2px] px-2.5 py-1.5 font-bold transition-colors ${tab === m ? "bg-ink text-paper" : "text-muted hover:text-ink"}`}
+                  >
+                    {m === "nwc" ? "NWC" : m === "lcm" ? "Least Cost" : "VAM"}
+                  </button>
+                ))}
+              </div>
+            )}
+            <label className="flex items-center gap-2 text-[14px]">
+              <span className="text-muted">{t({ id: "Soal", en: "Problem" })}</span>
+              <select value={slug} onChange={(e) => setSlug(e.target.value)} className="max-w-[280px] rounded-[3px] border border-ink/30 bg-surface px-3 py-2 font-semibold">
+                {problems.map((p) => (
+                  <option key={p.slug} value={p.slug}>
+                    {t(p.title)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
         <div className="mt-5">
           <StepPlayer sol={sol} />
@@ -250,12 +278,21 @@ export default function MetodePage() {
             <tbody>
               {table.map(({ p, r }) => {
                 const best = Math.min(...r.map((x) => x.iterations));
+                const active = p.slug === slug;
                 return (
-                  <tr key={p.slug} className="border-b border-line align-top">
-                    <td className="py-3 pr-4">
+                  <tr
+                    key={p.slug}
+                    className={`border-b border-line align-top transition-colors ${active ? "bg-hazard/15" : ""}`}
+                  >
+                    <td className={`py-3 pr-4 ${active ? "border-l-[4px] border-l-hazard pl-3" : ""}`}>
                       <Link href={`/contoh#${p.slug}`} className="text-[15px] font-semibold hover:text-route">
                         {t(p.title)}
                       </Link>
+                      {active && (
+                        <span className="ml-2 inline-block rounded-[2px] bg-hazard px-1.5 py-0.5 align-middle text-[11px] font-bold text-ink">
+                          {t({ id: "Simulasi aktif", en: "Live run" })}
+                        </span>
+                      )}
                     </td>
                     {r.map((x, k) => (
                       <td key={k} className="num px-3 py-3 text-[14px]">
@@ -273,6 +310,26 @@ export default function MetodePage() {
                 );
               })}
             </tbody>
+            <tfoot>
+              <tr className="border-t-2 border-ink bg-surface text-[13px]">
+                <th scope="row" className="py-3 pr-4 font-extrabold">
+                  {t({ id: `Ringkasan (${table.length} soal)`, en: `Summary (${table.length} problems)` })}
+                </th>
+                {summary.methods.map((s, k) => (
+                  <td key={k} className="num px-3 py-3">
+                    <span className={`font-bold ${s.mCount === summary.minM ? "text-route" : "text-alert"}`}>
+                      {s.mCount}/{table.length} {t({ id: "kena M", en: "hit M" })}
+                    </span>
+                    <span className={`block text-[12px] ${s.totalIter === summary.minIter ? "font-semibold text-route" : "text-muted"}`}>
+                      {t({ id: "Total", en: "Total" })} {s.totalIter} {t({ id: "iterasi", en: "iter." })}
+                    </span>
+                  </td>
+                ))}
+                <td className="num px-3 py-3 font-semibold text-muted">
+                  {summary.feasibleCount}/{table.length} {t({ id: "layak", en: "feasible" })}
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </section>

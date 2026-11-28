@@ -187,11 +187,26 @@ export default function StepPlayer({ sol, globalKeys = true }: { sol: Solution; 
                 <div className="mt-5">
                   <p className="text-[12px] font-bold text-muted">{t(ui.calc)}</p>
                   <div className="num mt-2 max-h-[340px] overflow-auto border-l-[3px] border-route bg-paper px-3 py-2.5 text-[13px] leading-[1.75]">
-                    {step.calc.map((c, k) => (
-                      <div key={k} className={`whitespace-pre-wrap ${c.includes("< 0") ? "text-alert" : ""}`}>
-                        {c}
-                      </div>
-                    ))}
+                    {step.calc.map((c, k) => {
+                      const penPrefix = step.snap.penPick
+                        ? `${step.snap.penPick.kind === "row" ? sol.rowLabels[step.snap.penPick.idx] : sol.colLabels[step.snap.penPick.idx]}:`
+                        : null;
+                      const isPickedPen = !!(penPrefix && c.startsWith(penPrefix));
+                      return (
+                        <div
+                          key={k}
+                          className={`whitespace-pre-wrap ${
+                            c.includes("< 0")
+                              ? "text-alert"
+                              : isPickedPen
+                              ? "-mx-1.5 rounded-[2px] bg-hazard/25 px-1.5 font-semibold text-ink"
+                              : ""
+                          }`}
+                        >
+                          {c}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
